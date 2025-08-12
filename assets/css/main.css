@@ -252,6 +252,45 @@ section {
   }
 }
 
+/*--------------------------------------------------------
+/* === Fix hero/header overlap (overrides) === 
+----------------------------------*/
+
+/* Tune this to your actual header height on desktop */
+:root { --header-h: 110px; }
+
+/* Make the hero copy start below the header */
+.hero .info {
+  padding-top: calc(var(--header-h) + 12px);
+  position: absolute; /* keep overlay behavior */
+  inset: 0;
+  z-index: 2;
+}
+
+/* Improve heading legibility & spacing */
+.hero .info h2 {
+  line-height: 1.15;
+  margin-bottom: 20px;
+}
+
+/* Mobile/tablet: smaller header + logo, smaller offset */
+@media (max-width: 991.98px) {
+  :root { --header-h: 84px; }           /* adjust if needed */
+  .header { padding: 14px 0; }          /* was 30px */
+  .header .logo img { max-height: 64px; }/* was 150px */
+  .hero .info { padding-top: calc(var(--header-h) + 8px); }
+  .hero .info h2 { font-size: 32px; }   /* ensure readable size */
+}
+
+/* Very small devices */
+@media (max-width: 575.98px) {
+  :root { --header-h: 76px; }
+  .header { padding: 12px 0; }
+  .header .logo img { max-height: 56px; }
+}
+
+
+
 /*--------------------------------------------------------------
 # Header
 --------------------------------------------------------------*/
