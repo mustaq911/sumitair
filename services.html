@@ -42,8 +42,31 @@
 <body>
 
   <!-- ======= Header ======= -->
-	<!-- Header will be injected here -->
-	<div id="headerContainer"></div>
+	<!-- Header will be injected here 
+	<div id="headerContainer"></div> -->
+	
+	<header id="header" class="header d-flex align-items-center">
+    <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
+
+      <a href="index.html" class="logo d-flex align-items-center">
+        <img src="assets/img/sumit-logo.png">
+        <h1>Sumit Heating and Air Conditioning<span>.</span></h1>
+      </a>
+
+      <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
+      <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
+      <nav id="navbar" class="navbar">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="projects.html">Projects</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav><!-- .navbar -->
+
+    </div>
+  </header>
 
   <!-- End Header -->
 
@@ -219,14 +242,22 @@
   <!-- =======  End Footer ======= -->
 
 	<script>
-		  // Load header
+		  /* 
+			//Load header
 			fetch('header.html')
 			  .then(res => res.text())
-			  .then(html => {
-				document.getElementById('headerContainer').innerHTML = html;
+			  .then(html => { document.getElementById('header1').innerHTML = html; })
+			  .catch(err => console.error('Header load failed:', err));
+		  */
 
-				// Highlight the active menu item based on current URL
-				const currentPage = window.location.pathname.split("/").pop();
+		  // Load footer
+		  fetch('footer.html')
+			.then(res => res.text())
+			.then(data => { document.getElementById('footerContainer').innerHTML = data; })
+			.catch(err => console.error('Footer load failed:', err));
+			
+		  // Highlight the active menu item based on current URL
+			const currentPage = window.location.pathname.split("/").pop();
 				document.querySelectorAll('#navbar a').forEach(link => {
 				  if (link.getAttribute('href') === currentPage) {
 					link.classList.add('active');
@@ -234,15 +265,6 @@
 					link.classList.remove('active');
 				  }
 				});
-			  })
-			  .catch(err => console.error('Header load failed:', err));
-
-
-		  // Load footer
-		  fetch('footer.html')
-			.then(res => res.text())
-			.then(data => { document.getElementById('footerContainer').innerHTML = data; })
-			.catch(err => console.error('Footer load failed:', err));
 			
     </script>
 
