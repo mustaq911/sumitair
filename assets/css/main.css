@@ -304,12 +304,12 @@ section {
 }
 
 .header .logo img {
-  max-height: 150px;
+  max-height: 80px;
   margin-right: 6px;
 }
 
 .header .logo h1 {
-  font-size: 24px;
+  font-size: 18px;
   font-weight: 700;
   color: #fff;
   margin-bottom: 0;
@@ -1943,7 +1943,7 @@ section {
   color: #fff;
   margin-bottom: 30px;
   padding-bottom: 30px;
-  font-size: 56px;
+  font-size: 36px;
   font-weight: 700;
   position: relative;
 }
