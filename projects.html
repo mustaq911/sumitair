@@ -30,6 +30,34 @@
 
   <!-- Template Main CSS File -->
   <link href="assets/css/main.css" rel="stylesheet">
+  <!-- place this AFTER assets/css/main.css -->
+  <style>
+	  /* Child filter bar: look & behave like the parent bar */
+	  .projects .portfolio-subflters{
+		list-style: none;           /* no bullets */
+		padding: 0;                 /* remove left indent */
+		margin: 0 0 35px 0;
+		text-align: center;
+		white-space: nowrap;        /* keep everything on one line */
+		overflow-x: auto;           /* allow horizontal scroll if too many */
+		-webkit-overflow-scrolling: touch;
+	  }
+	  .projects .portfolio-subflters li{
+		cursor: pointer;
+		display: inline-block;      /* horizontal pills */
+		padding: 0 15px;
+		font-size: 18px;
+		font-weight: 500;
+		color: var(--color-secondary);
+		margin: 0 10px 5px 10px;
+		line-height: 1;
+		transition: all 0.3s ease-in-out;
+	  }
+	  .projects .portfolio-subflters li:hover,
+	  .projects .portfolio-subflters li.filter-active{
+		color: var(--color-primary);
+	  }
+  </style>
 
 </head>
 
@@ -86,418 +114,13 @@
         <div class="portfolio-isotope" data-portfolio-filter="*" data-portfolio-layout="masonry"
           data-portfolio-sort="original-order">
 
-          <ul class="portfolio-flters" data-aos="fade-up" data-aos-delay="100">
-            <li data-filter="*" class="filter-active">All</li>
-            <li data-filter=".filter-remodeling">Project 1</li>
-            <li data-filter=".filter-construction">Project 2</li>
-            <li data-filter=".filter-repairs">Project 3</li>
-            <li data-filter=".filter-design">Project 4</li>
-			<li data-filter=".filter-project5">Project 5</li>
-          </ul><!-- End Projects Filters -->
+          <ul class="portfolio-flters" data-aos="fade-up" data-aos-delay="100"></ul>
+		  <ul class="portfolio-subflters" style="display:none;"></ul>
+		  
+		  <div class="row gy-4 portfolio-container" data-aos="fade-up" data-aos-delay="200">
+		  </div><!-- End Projects Container -->
 
-          <div class="row gy-4 portfolio-container" data-aos="fade-up" data-aos-delay="200">
-
-            <div class="col-lg-4 col-md-6 portfolio-item filter-remodeling">
-              <div class="portfolio-content h-100">
-                <img src="assets/img/proj-01/pic01.jpg" class="img-fluid" alt="">
-                <div class="portfolio-info">
-                  <h4>Project 1-01</h4>
-                  <a href="assets/img/proj-01/pic01.jpg" title="Project 1-01"
-                    data-gallery="portfolio-gallery-remodeling" class="glightbox preview-link"><i
-                      class="bi bi-zoom-in"></i></a>
-                </div>
-              </div>
-            </div><!-- End Projects Item -->
-
-            <div class="col-lg-4 col-md-6 portfolio-item filter-construction">
-              <div class="portfolio-content h-100">
-                <img src="assets/img/proj-02/pic01.jpg" class="img-fluid" alt="">
-                <div class="portfolio-info">
-                  <h4>Project 2-01</h4>
-                  
-                  <a href="assets/img/proj-02/pic01.jpg" title="Project 2-01"
-                    data-gallery="portfolio-gallery-construction" class="glightbox preview-link"><i
-                      class="bi bi-zoom-in"></i></a>
-                </div>
-              </div>
-            </div><!-- End Projects Item -->
-
-            <div class="col-lg-4 col-md-6 portfolio-item filter-repairs">
-              <div class="portfolio-content h-100">
-                <img src="assets/img/proj-03/pic01.jpg" class="img-fluid" alt="">
-                <div class="portfolio-info">
-                  <h4>Project 3-01</h4>
-                  
-                  <a href="assets/img/proj-03/pic01.jpg" title="Project 3-01" data-gallery="portfolio-gallery-repairs"
-                    class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                </div>
-              </div>
-            </div><!-- End Projects Item -->
-
-            <div class="col-lg-4 col-md-6 portfolio-item filter-design">
-              <div class="portfolio-content h-100">
-                <img src="assets/img/proj-04/pic01.jpg" class="img-fluid" alt="">
-                <div class="portfolio-info">
-                  <h4>Project 4-01</h4>
-                  
-                  <a href="assets/img/proj-04/pic01.jpg" title="Project 4-01" data-gallery="portfolio-gallery-book"
-                    class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                  
-                </div>
-              </div>
-            </div><!-- End Projects Item -->
-			
-			<div class="col-lg-4 col-md-6 portfolio-item filter-project5">
-              <div class="portfolio-content h-100">
-                <img src="assets/img/proj-05/pic01.jpg" class="img-fluid" alt="">
-                <div class="portfolio-info">
-                  <h4>Project 5-01</h4>
-                  
-                  <a href="assets/img/proj-05/pic01.jpg" title="Project 5-01" data-gallery="portfolio-gallery-book"
-                    class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                  
-                </div>
-              </div>
-            </div><!-- End Projects Item -->
-
-            <div class="col-lg-4 col-md-6 portfolio-item filter-remodeling">
-              <div class="portfolio-content h-100">
-                <img src="assets/img/proj-01/pic02.jpg" class="img-fluid" alt="">
-                <div class="portfolio-info">
-                  <h4>Project 1-02</h4>
-                  
-                  <a href="assets/img/proj-01/pic02.jpg" title="Project 1-02"
-                    data-gallery="portfolio-gallery-remodeling" class="glightbox preview-link"><i
-                      class="bi bi-zoom-in"></i></a>
-                  
-                </div>
-              </div>
-            </div><!-- End Projects Item -->
-
-            <div class="col-lg-4 col-md-6 portfolio-item filter-construction">
-              <div class="portfolio-content h-100">
-                <img src="assets/img/proj-02/pic02.jpg" class="img-fluid" alt="">
-                <div class="portfolio-info">
-                  <h4>Project 2-02</h4>
-                  
-                  <a href="assets/img/proj-02/pic02.jpg" title="Project 2-02"
-                    data-gallery="portfolio-gallery-construction" class="glightbox preview-link"><i
-                      class="bi bi-zoom-in"></i></a>
-                  
-                </div>
-              </div>
-            </div><!-- End Projects Item -->
-
-            <div class="col-lg-4 col-md-6 portfolio-item filter-repairs">
-              <div class="portfolio-content h-100">
-                <img src="assets/img/proj-03/pic02.jpg" class="img-fluid" alt="">
-                <div class="portfolio-info">
-                  <h4>Project 3-02</h4>
-                  
-                  <a href="assets/img/proj-03/pic02.jpg" title="Project 3-02" data-gallery="portfolio-gallery-repairs"
-                    class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                  
-                </div>
-              </div>
-            </div><!-- End Projects Item -->
-
-            <div class="col-lg-4 col-md-6 portfolio-item filter-design">
-              <div class="portfolio-content h-100">
-                <img src="assets/img/proj-04/pic02.jpg" class="img-fluid" alt="">
-                <div class="portfolio-info">
-                  <h4>Project 4-02</h4>
-                  
-                  <a href="assets/img/proj-04/pic02.jpg" title="Project 4-02" data-gallery="portfolio-gallery-book"
-                    class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                  
-                </div>
-              </div>
-            </div><!-- End Projects Item -->
-			
-			<div class="col-lg-4 col-md-6 portfolio-item filter-project5">
-              <div class="portfolio-content h-100">
-                <img src="assets/img/proj-05/pic02.jpg" class="img-fluid" alt="">
-                <div class="portfolio-info">
-                  <h4>Project 5-02</h4>
-                  
-                  <a href="assets/img/proj-05/pic02.jpg" title="Project 5-02" data-gallery="portfolio-gallery-book"
-                    class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                  
-                </div>
-              </div>
-            </div><!-- End Projects Item -->
-
-            <div class="col-lg-4 col-md-6 portfolio-item filter-remodeling">
-              <div class="portfolio-content h-100">
-                <img src="assets/img/proj-01/pic03.jpg" class="img-fluid" alt="">
-                <div class="portfolio-info">
-                  <h4>Project 1-03</h4>
-                  
-                  <a href="assets/img/proj-01/pic03.jpg" title="Project 1-03"
-                    data-gallery="portfolio-gallery-remodeling" class="glightbox preview-link"><i
-                      class="bi bi-zoom-in"></i></a>
-                  
-                </div>
-              </div>
-            </div><!-- End Projects Item -->
-
-            <div class="col-lg-4 col-md-6 portfolio-item filter-construction">
-              <div class="portfolio-content h-100">
-                <img src="assets/img/proj-02/pic03.jpg" class="img-fluid" alt="">
-                <div class="portfolio-info">
-                  <h4>Project 2-03</h4>
-                  
-                  <a href="assets/img/proj-02/pic03.jpg" title="Project 2-03"
-                    data-gallery="portfolio-gallery-construction" class="glightbox preview-link"><i
-                      class="bi bi-zoom-in"></i></a>
-                  
-                </div>
-              </div>
-            </div><!-- End Projects Item -->
-
-            <div class="col-lg-4 col-md-6 portfolio-item filter-repairs">
-              <div class="portfolio-content h-100">
-                <img src="assets/img/proj-03/pic03.jpg" class="img-fluid" alt="">
-                <div class="portfolio-info">
-                  <h4>Project 3-03</h4>
-                  
-                  <a href="assets/img/proj-03/pic03.jpg" title="Project 3-03" data-gallery="portfolio-gallery-repairs"
-                    class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                  
-                </div>
-              </div>
-            </div><!-- End Projects Item -->
-
-            <div class="col-lg-4 col-md-6 portfolio-item filter-design">
-              <div class="portfolio-content h-100">
-                <img src="assets/img/proj-04/pic03.jpg" class="img-fluid" alt="">
-                <div class="portfolio-info">
-                  <h4>Project 4-03</h4>
-                  
-                  <a href="assets/img/proj-04/pic03.jpg" title="Project 4-03" data-gallery="portfolio-gallery-book"
-                    class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                  
-                </div>
-              </div>
-            </div><!-- End Projects Item -->
-			
-			<div class="col-lg-4 col-md-6 portfolio-item filter-project5">
-              <div class="portfolio-content h-100">
-                <img src="assets/img/proj-05/pic03.jpg" class="img-fluid" alt="">
-                <div class="portfolio-info">
-                  <h4>Project 5-03</h4>
-                  
-                  <a href="assets/img/proj-05/pic03.jpg" title="Project 5-03" data-gallery="portfolio-gallery-book"
-                    class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                  
-                </div>
-              </div>
-            </div><!-- End Projects Item -->
-			
-			<div class="col-lg-4 col-md-6 portfolio-item filter-remodeling">
-              <div class="portfolio-content h-100">
-                <img src="assets/img/proj-01/pic04.jpg" class="img-fluid" alt="">
-                <div class="portfolio-info">
-                  <h4>Project 1-04</h4>
-                  
-                  <a href="assets/img/proj-01/pic04.jpg" title="Project 1-04"
-                    data-gallery="portfolio-gallery-remodeling" class="glightbox preview-link"><i
-                      class="bi bi-zoom-in"></i></a>
-                  
-                </div>
-              </div>
-            </div><!-- End Projects Item -->
-
-            <div class="col-lg-4 col-md-6 portfolio-item filter-construction">
-              <div class="portfolio-content h-100">
-                <img src="assets/img/proj-02/pic04.jpg" class="img-fluid" alt="">
-                <div class="portfolio-info">
-                  <h4>Project 2-04</h4>
-                  
-                  <a href="assets/img/proj-02/pic04.jpg" title="Project 2-04"
-                    data-gallery="portfolio-gallery-construction" class="glightbox preview-link"><i
-                      class="bi bi-zoom-in"></i></a>
-                  
-                </div>
-              </div>
-            </div><!-- End Projects Item -->
-
-            <div class="col-lg-4 col-md-6 portfolio-item filter-repairs">
-              <div class="portfolio-content h-100">
-                <img src="assets/img/proj-03/pic04.jpg" class="img-fluid" alt="">
-                <div class="portfolio-info">
-                  <h4>Project 3-04</h4>
-                  
-                  <a href="assets/img/proj-03/pic04.jpg" title="Project 3-04" data-gallery="portfolio-gallery-repairs"
-                    class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                  
-                </div>
-              </div>
-            </div><!-- End Projects Item -->
-
-            <div class="col-lg-4 col-md-6 portfolio-item filter-design">
-              <div class="portfolio-content h-100">
-                <img src="assets/img/proj-04/pic04.jpg" class="img-fluid" alt="">
-                <div class="portfolio-info">
-                  <h4>Project 4-04</h4>
-                  
-                  <a href="assets/img/proj-04/pic04.jpg" title="Project 4-04" data-gallery="portfolio-gallery-book"
-                    class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                  
-                </div>
-              </div>
-            </div><!-- End Projects Item -->
-			
-			<div class="col-lg-4 col-md-6 portfolio-item filter-project5">
-              <div class="portfolio-content h-100">
-                <img src="assets/img/proj-05/pic04.jpg" class="img-fluid" alt="">
-                <div class="portfolio-info">
-                  <h4>Project 5-04</h4>
-                  
-                  <a href="assets/img/proj-05/pic04.jpg" title="Project 5-04" data-gallery="portfolio-gallery-book"
-                    class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                  
-                </div>
-              </div>
-            </div><!-- End Projects Item -->
-			
-			<div class="col-lg-4 col-md-6 portfolio-item filter-remodeling">
-              <div class="portfolio-content h-100">
-                <img src="assets/img/proj-01/pic05.jpg" class="img-fluid" alt="">
-                <div class="portfolio-info">
-                  <h4>Project 1-05</h4>
-                  
-                  <a href="assets/img/proj-01/pic05.jpg" title="Project 1-05"
-                    data-gallery="portfolio-gallery-remodeling" class="glightbox preview-link"><i
-                      class="bi bi-zoom-in"></i></a>
-                  
-                </div>
-              </div>
-            </div><!-- End Projects Item -->
-
-            <div class="col-lg-4 col-md-6 portfolio-item filter-construction">
-              <div class="portfolio-content h-100">
-                <img src="assets/img/proj-02/pic05.jpg" class="img-fluid" alt="">
-                <div class="portfolio-info">
-                  <h4>Project 2-05</h4>
-                  
-                  <a href="assets/img/proj-02/pic05.jpg" title="Project 2-05"
-                    data-gallery="portfolio-gallery-construction" class="glightbox preview-link"><i
-                      class="bi bi-zoom-in"></i></a>
-                  
-                </div>
-              </div>
-            </div><!-- End Projects Item -->
-
-            <div class="col-lg-4 col-md-6 portfolio-item filter-repairs">
-              <div class="portfolio-content h-100">
-                <img src="assets/img/proj-03/pic05.jpg" class="img-fluid" alt="">
-                <div class="portfolio-info">
-                  <h4>Project 3-05</h4>
-                  
-                  <a href="assets/img/proj-03/pic05.jpg" title="Project 3-05" data-gallery="portfolio-gallery-repairs"
-                    class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                  
-                </div>
-              </div>
-            </div><!-- End Projects Item -->
-
-            <div class="col-lg-4 col-md-6 portfolio-item filter-design">
-              <div class="portfolio-content h-100">
-                <img src="assets/img/proj-04/pic05.jpg" class="img-fluid" alt="">
-                <div class="portfolio-info">
-                  <h4>Project 4-05</h4>
-                  
-                  <a href="assets/img/proj-04/pic05.jpg" title="Project 4-05" data-gallery="portfolio-gallery-book"
-                    class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                  
-                </div>
-              </div>
-            </div><!-- End Projects Item -->
-			
-			<div class="col-lg-4 col-md-6 portfolio-item filter-project5">
-              <div class="portfolio-content h-100">
-                <img src="assets/img/proj-05/pic05.jpg" class="img-fluid" alt="">
-                <div class="portfolio-info">
-                  <h4>Project 5-05</h4>
-                  
-                  <a href="assets/img/proj-05/pic05.jpg" title="Project 5-05" data-gallery="portfolio-gallery-book"
-                    class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                  
-                </div>
-              </div>
-            </div><!-- End Projects Item -->
-			
-			<div class="col-lg-4 col-md-6 portfolio-item filter-remodeling">
-              <div class="portfolio-content h-100">
-                <img src="assets/img/proj-01/pic06.jpg" class="img-fluid" alt="">
-                <div class="portfolio-info">
-                  <h4>Project 1-06</h4>
-                  
-                  <a href="assets/img/proj-01/pic06.jpg" title="Project 1-06"
-                    data-gallery="portfolio-gallery-remodeling" class="glightbox preview-link"><i
-                      class="bi bi-zoom-in"></i></a>
-                  
-                </div>
-              </div>
-            </div><!-- End Projects Item -->
-
-            <div class="col-lg-4 col-md-6 portfolio-item filter-construction">
-              <div class="portfolio-content h-100">
-                <img src="assets/img/proj-02/pic06.jpg" class="img-fluid" alt="">
-                <div class="portfolio-info">
-                  <h4>Project 2-06</h4>
-                  
-                  <a href="assets/img/proj-02/pic06.jpg" title="Project 2-06"
-                    data-gallery="portfolio-gallery-construction" class="glightbox preview-link"><i
-                      class="bi bi-zoom-in"></i></a>
-                  
-                </div>
-              </div>
-            </div><!-- End Projects Item -->
-
-            <div class="col-lg-4 col-md-6 portfolio-item filter-repairs">
-              <div class="portfolio-content h-100">
-                <img src="assets/img/proj-03/pic06.jpg" class="img-fluid" alt="">
-                <div class="portfolio-info">
-                  <h4>Project 3-06</h4>
-                  
-                  <a href="assets/img/proj-03/pic06.jpg" title="Project 3-06" data-gallery="portfolio-gallery-repairs"
-                    class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                  
-                </div>
-              </div>
-            </div><!-- End Projects Item -->
-
-            <div class="col-lg-4 col-md-6 portfolio-item filter-design">
-              <div class="portfolio-content h-100">
-                <img src="assets/img/proj-04/pic06.jpg" class="img-fluid" alt="">
-                <div class="portfolio-info">
-                  <h4>Project 4-06</h4>
-                  
-                  <a href="assets/img/proj-04/pic06.jpg" title="Project 4-06" data-gallery="portfolio-gallery-book"
-                    class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                  
-                </div>
-              </div>
-            </div><!-- End Projects Item -->
-			
-			<div class="col-lg-4 col-md-6 portfolio-item filter-project5">
-              <div class="portfolio-content h-100">
-                <img src="assets/img/proj-05/pic06.jpg" class="img-fluid" alt="">
-                <div class="portfolio-info">
-                  <h4>Project 5-06</h4>
-                  
-                  <a href="assets/img/proj-05/pic06.jpg" title="Project 5-06" data-gallery="portfolio-gallery-book"
-                    class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                  
-                </div>
-              </div>
-            </div><!-- End Projects Item -->
-
-          </div><!-- End Projects Container -->
-
-        </div>
+        </div><!-- End of row gy-4 portfolio-container -->
 
       </div>
     </section><!-- End Our Projects Section -->
@@ -554,6 +177,7 @@
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
+  <script src="assets/js/portfolio.dynamic.js"></script>
 
 </body>
 

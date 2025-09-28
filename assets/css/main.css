@@ -2727,3 +2727,6 @@ section {
 .footer .footer-legal .credits a {
   color: var(--color-primary);
 }
+
+.portfolio-subflters { margin-top: 8px; }
+.portfolio-flters li, .portfolio-subflters li { cursor: pointer; }
