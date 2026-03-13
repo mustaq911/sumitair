@@ -4,49 +4,203 @@
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-
-  <title>Sumit   Air-Conditioning - Index</title>
+  <title>Sumit Air-Conditioning - Index</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
-  <!-- Favicons -->
   <link href="assets/img/favicon.png" rel="icon">
   <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
-  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600;1,700&family=Roboto:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Work+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
-    rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600;1,700&family=Roboto:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Work+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
 
-  <!-- Vendor CSS Files -->
   <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
   <link href="assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
   <link href="assets/vendor/aos/aos.css" rel="stylesheet">
   <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
   <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
-
-  <!-- Template Main CSS File -->
   <link href="assets/css/main.css" rel="stylesheet">
+
+  <style>
+    /* ============================================================
+       HERO — reduce to ~30% of original 100vh height
+       ============================================================ */
+    #hero,
+    #hero-carousel,
+    #hero-carousel .carousel-item {
+      height: 30vh !important;
+      min-height: 200px !important;
+    }
+
+    /* CRITICAL: stop .info from overflowing beyond the hero section */
+    #hero {
+      position: relative !important;
+      overflow: hidden !important;
+    }
+    #hero .info {
+      position: absolute !important;
+      top: 0 !important;
+      left: 0 !important;
+      right: 0 !important;
+      bottom: 0 !important;
+      height: 100% !important;
+      overflow: hidden !important;
+      pointer-events: none; /* let clicks pass through the overlay layer */
+    }
+    /* Re-enable pointer events only on actual interactive elements inside .info */
+    #hero .info a,
+    #hero .info button {
+      pointer-events: auto;
+    }
+
+    /* Widen the welcome text container so it uses more horizontal space */
+    #hero .info .row { max-width: 100%; }
+    #hero .info .col-lg-6 {
+      flex: 0 0 100%;
+      max-width: 100%;
+    }
+    #hero .info h2 { font-size: 1.6rem; margin-bottom: 6px; }
+    #hero .info p   { font-size: 0.88rem; margin-bottom: 10px; }
+
+    /* ============================================================
+       PROJECT LABEL above each gallery widget
+       ============================================================ */
+    .hpg-project-label {
+      font-family: 'Work Sans', sans-serif;
+      /* font-size: 0.78rem; */
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--color-secondary, #444);
+      text-align: center;
+      margin: 0 0 10px 0;
+      padding: 4px 0;
+      border-bottom: 2px solid var(--color-primary, #e84545);
+      display: inline-block;
+      align-self: center;
+    }
+    /* wrapper to centre the label within col */
+    .hpg-col { padding-bottom: 20px; display: flex; flex-direction: column; align-items: center; }
+
+    /* ============================================================
+       GALLERY WIDGET
+       ============================================================ */
+    .hpg-wrap  { width: 100%; display: flex; flex-direction: column; align-items: center; }
+    .hpg-stage { display: flex; align-items: center; gap: 10px; width: 100%; justify-content: center; }
+
+    .hpg-arrow {
+      flex-shrink: 0; width: 42px; height: 42px;
+      border: 2px solid var(--color-primary, #e84545);
+      background: #fff; border-radius: 4px; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--color-primary, #e84545);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+      transition: background 0.2s, color 0.2s, transform 0.15s;
+    }
+    .hpg-arrow svg { width: 20px; height: 20px; stroke-width: 3; }
+    .hpg-arrow:hover {
+      background: var(--color-primary, #e84545); color: #fff;
+      transform: scale(1.08); box-shadow: 0 3px 12px rgba(232,69,69,0.35);
+    }
+
+    .hpg-stack {
+      position: relative; flex: 1 1 0; min-width: 0;
+      aspect-ratio: 16 / 11;
+      margin-right: 10px; margin-bottom: 10px;
+      cursor: zoom-in;
+    }
+    .hpg-ghost {
+      position: absolute; inset: 0;
+      border: 1.5px solid rgba(0,0,0,0.14);
+      background: #f0f0f0; border-radius: 3px; pointer-events: none;
+    }
+    .hpg-ghost:nth-child(1) { transform: translate(10px,10px); opacity: 0.20; }
+    .hpg-ghost:nth-child(2) { transform: translate(6px, 6px);  opacity: 0.36; }
+    .hpg-ghost:nth-child(3) { transform: translate(3px, 3px);  opacity: 0.56; }
+
+    .hpg-card {
+      position: absolute; inset: 0;
+      border: 2px solid #ddd; border-radius: 3px;
+      overflow: hidden; background: #ccc;
+      box-shadow: 5px 5px 0 rgba(0,0,0,0.10);
+      transition: border-color 0.25s, box-shadow 0.25s;
+    }
+    .hpg-stack:hover .hpg-card {
+      border-color: var(--color-primary, #e84545);
+      box-shadow: 7px 7px 0 rgba(232,69,69,0.18);
+    }
+
+    .hpg-main-img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+      transition: opacity 0.28s ease, transform 0.28s ease;
+    }
+    .hpg-main-img.hpg-fade-out { opacity: 0; transform: scale(1.03); }
+
+    .hpg-counter {
+      position: absolute; top: 10px; right: 12px; z-index: 5;
+      background: rgba(0,0,0,0.55); color: #fff;
+      font-size: 0.68rem; letter-spacing: 0.1em;
+      padding: 3px 8px; border-radius: 2px;
+      font-family: 'Work Sans', sans-serif; font-weight: 500;
+      pointer-events: none;
+    }
+
+    .hpg-progress {
+      width: calc(100% - 104px); height: 3px;
+      background: rgba(0,0,0,0.10);
+      margin-top: 10px; border-radius: 2px; overflow: hidden;
+    }
+    .hpg-progress-fill {
+      height: 100%; background: var(--color-primary, #e84545);
+      transition: width 0.35s ease; border-radius: 2px;
+    }
+
+    .hpg-thumbs {
+      display: flex; gap: 7px; margin-top: 10px;
+      overflow-x: auto; padding: 3px 2px 6px;
+      scrollbar-width: thin; scrollbar-color: rgba(0,0,0,0.15) transparent;
+      width: calc(100% - 104px); flex-wrap: nowrap;
+    }
+    .hpg-thumbs::-webkit-scrollbar { height: 3px; }
+    .hpg-thumbs::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.18); border-radius: 2px; }
+
+    .hpg-thumb {
+      flex-shrink: 0; width: 60px; height: 40px;
+      border: 2px solid transparent; border-radius: 3px;
+      overflow: hidden; cursor: pointer; background: #ddd;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .hpg-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.3s; }
+    .hpg-thumb:hover { transform: translateY(-2px); }
+    .hpg-thumb:hover img { transform: scale(1.08); }
+    .hpg-thumb.hpg-active {
+      border-color: var(--color-primary, #e84545);
+      transform: translateY(-3px);
+      box-shadow: 0 2px 6px rgba(232,69,69,0.3);
+    }
+
+    @media (max-width: 767px) {
+      .hpg-col { width: 100% !important; }
+      .hpg-arrow { width: 34px; height: 34px; }
+      #hero, #hero-carousel, #hero-carousel .carousel-item {
+        height: 25vh !important; min-height: 160px !important;
+      }
+    }
+  </style>
 
 </head>
 
 <body>
 
   <!-- ======= Header ======= -->
-	<!-- Header will be injected here 
-	<div id="headerContainer"></div> -->
-	
-	<header id="header" class="header d-flex align-items-center">
+  <header id="header" class="header d-flex align-items-center">
     <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
-
       <a href="index.html" class="logo d-flex align-items-center">
         <img src="assets/img/sumit-logo.png">
         <h1>Sumit Heating and Air Conditioning<span>.</span></h1>
       </a>
-
       <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
       <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
       <nav id="navbar" class="navbar">
@@ -57,66 +211,69 @@
           <li><a href="projects.html">Projects</a></li>
           <li><a href="contact.html">Contact</a></li>
         </ul>
-      </nav><!-- .navbar -->
-
+      </nav>
     </div>
-  </header>
+  </header><!-- End Header -->
 
-  <!-- End Header -->
-
-  <!-- ======= Hero Section ======= -->
+  <!-- ======= Hero Section — compact 30vh ======= -->
   <section id="hero" class="hero">
-
     <div class="info d-flex align-items-center">
       <div class="container">
         <div class="row justify-content-center">
-          <div class="col-lg-6 text-center">
-            <!-- <h2 data-aos="fade-down">Welcome to Sumit<br>Heating and Air Conditioning.</span></h2>-->
-			<!--<h2 data-aos="fade-down">Welcome to Sumit Heating and Air Conditioning</h2>-->
-			<h2 data-aos="fade-down">Welcome</h2>
-
-			<p data-aos="fade-up">Sumit Heating & Air Conditioning, based in the GTA, specializes in providing high-quality 
-					heating and cooling solutions for both residential and commercial clients. Our services include the 
-					installation, maintenance, and repair of a wide range of HVAC systems. </p>
+          <!-- col widened to col-lg-10 for more horizontal space -->
+          <div class="col-lg-10 col-12 text-center">
+            <h2 data-aos="fade-down">Welcome</h2>
+            <p data-aos="fade-up">Sumit Heating &amp; Air Conditioning, based in the GTA, specializes in providing high-quality
+              heating and cooling solutions for both residential and commercial clients. Our services include the
+              installation, maintenance, and repair of a wide range of HVAC systems.</p>
             <a data-aos="fade-up" data-aos-delay="200" href="#get-started" class="btn-get-started">Get Started</a>
           </div>
         </div>
       </div>
     </div>
-
     <div id="hero-carousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000">
-
-      <div class="carousel-item active" style="background-image: url(assets/img/hero-carousel/hero-carousel-1.jpg)">
-      </div>
+      <div class="carousel-item active" style="background-image: url(assets/img/hero-carousel/hero-carousel-1.jpg)"></div>
       <div class="carousel-item" style="background-image: url(assets/img/hero-carousel/hero-carousel-2.jpg)"></div>
       <div class="carousel-item" style="background-image: url(assets/img/hero-carousel/hero-carousel-3.jpg)"></div>
       <div class="carousel-item" style="background-image: url(assets/img/hero-carousel/hero-carousel-4.jpg)"></div>
       <div class="carousel-item" style="background-image: url(assets/img/hero-carousel/hero-carousel-5.jpg)"></div>
-
       <a class="carousel-control-prev" href="#hero-carousel" role="button" data-bs-slide="prev">
         <span class="carousel-control-prev-icon bi bi-chevron-left" aria-hidden="true"></span>
       </a>
-
       <a class="carousel-control-next" href="#hero-carousel" role="button" data-bs-slide="next">
         <span class="carousel-control-next-icon bi bi-chevron-right" aria-hidden="true"></span>
       </a>
-
     </div>
-
   </section><!-- End Hero Section -->
 
   <main id="main">
 
-    <!-- ======= Constructions Section ======= -->
-    <section id="constructions" class="constructions">
+    <!-- ======= Projects Gallery Section (ABOVE Constructions) ======= -->
+    <section id="home-projects" class="projects section-bg">
       <div class="container" data-aos="fade-up">
 
         <div class="section-header">
-          <h2>Our Work</h2>
-          <p>Take a look at some of our recent HVAC projects for residential and 
-				commercial clients across Ontario.</p>
+          <h2>Our Projects</h2>
+          <p>A selection of custom home HVAC installations we're proud of.</p>
         </div>
 
+        <!-- 2×2 grid — labels and widgets injected by script -->
+        <div id="hpg-grid" class="row gy-4" data-aos="fade-up" data-aos-delay="100"></div>
+
+        <div class="text-center mt-4" data-aos="fade-up" data-aos-delay="200">
+          <a href="projects.html" class="btn-get-started">View All Projects</a>
+        </div>
+
+      </div>
+    </section><!-- End Projects Gallery Section -->
+
+    <!-- ======= Constructions Section ======= -->
+    <section id="constructions" class="constructions">
+      <div class="container" data-aos="fade-up">
+        <div class="section-header">
+          <h2>Our Work</h2>
+          <p>Take a look at some of our recent HVAC projects for residential and commercial clients across Ontario.</p>
+        </div>
         <div class="row gy-4">
 
           <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
@@ -128,13 +285,12 @@
                 <div class="col-xl-7 d-flex align-items-center">
                   <div class="card-body">
                     <h4 class="card-title">Residential Central Air Installation.</h4>
-                    <p>Complete installation of an energy-efficient central air system, 
-					improving comfort and lowering utility bills for a family home in Canada.</p>
+                    <p>Complete installation of an energy-efficient central air system, improving comfort and lowering utility bills for a family home in Canada.</p>
                   </div>
                 </div>
               </div>
             </div>
-          </div><!-- End Card Item -->
+          </div>
 
           <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
             <div class="card-item">
@@ -145,13 +301,12 @@
                 <div class="col-xl-7 d-flex align-items-center">
                   <div class="card-body">
                     <h4 class="card-title">Commercial HVAC Upgrade</h4>
-                    <p>Upgraded an office building’s HVAC system to a modern, high-efficiency 
-					unit — improving airflow, comfort, and energy savings for over 50 employees.</p>
+                    <p>Upgraded an office building's HVAC system to a modern, high-efficiency unit — improving airflow, comfort, and energy savings for over 50 employees.</p>
                   </div>
                 </div>
               </div>
             </div>
-          </div><!-- End Card Item -->
+          </div>
 
           <div class="col-lg-6" data-aos="fade-up" data-aos-delay="300">
             <div class="card-item">
@@ -162,13 +317,12 @@
                 <div class="col-xl-7 d-flex align-items-center">
                   <div class="card-body">
                     <h4 class="card-title">Emergency Cooling Repair</h4>
-                    <p>Fast same-day service to restore cooling for a retail store during peak summer heat — ensuring 
-					customer comfort and business continuity.</p>
+                    <p>Fast same-day service to restore cooling for a retail store during peak summer heat — ensuring customer comfort and business continuity.</p>
                   </div>
                 </div>
               </div>
             </div>
-          </div><!-- End Card Item -->
+          </div>
 
           <div class="col-lg-6" data-aos="fade-up" data-aos-delay="400">
             <div class="card-item">
@@ -179,233 +333,330 @@
                 <div class="col-xl-7 d-flex align-items-center">
                   <div class="card-body">
                     <h4 class="card-title">Seasonal Maintenance Program</h4>
-                    <p>Comprehensive inspection and tune-up of multiple residential units, extending equipment 
-					life and ensuring peak performance year-round.</p>
+                    <p>Comprehensive inspection and tune-up of multiple residential units, extending equipment life and ensuring peak performance year-round.</p>
                   </div>
                 </div>
               </div>
             </div>
-          </div><!-- End Card Item -->
+          </div>
 
         </div>
-
       </div>
     </section><!-- End Constructions Section -->
 
     <!-- ======= Services Section ======= -->
     <section id="services" class="services section-bg">
       <div class="container" data-aos="fade-up">
-
         <div class="section-header">
           <h2>Our Services</h2>
-          <p>We provide expert HVAC services for homes and businesses — from 
-		  installation and repairs to seasonal maintenance and energy-saving solutions.</p>
+          <p>We provide expert HVAC services for homes and businesses — from installation and repairs to seasonal maintenance and energy-saving solutions.</p>
         </div>
-
         <div class="row gy-4">
 
           <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
-            <div class="service-item  position-relative">
-              <div class="icon">
-                <i class="fa-solid fa-mountain-city"></i>
-              </div>
+            <div class="service-item position-relative">
+              <div class="icon"><i class="fa-solid fa-mountain-city"></i></div>
               <h3>Heating and Air Conditioning Expertise</h3>
-              <p>Professional installation of central air systems, ductless mini-splits, and 
-				rooftop units — customized to your space and budget.</p>
-              <a href="services.html" class="readmore stretched-link">Learn more <i
-                  class="bi bi-arrow-right"></i></a>
+              <p>Professional installation of central air systems, ductless mini-splits, and rooftop units — customized to your space and budget.</p>
+              <a href="services.html" class="readmore stretched-link">Learn more <i class="bi bi-arrow-right"></i></a>
             </div>
-          </div><!-- End Service Item -->
+          </div>
 
           <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
             <div class="service-item position-relative">
-              <div class="icon">
-                <i class="fa-solid fa-arrow-up-from-ground-water"></i>
-              </div>
-              <h3>Repairs & Emergency Service</h3>
-              <p>Fast, reliable repairs for all HVAC brands, available 24/7 to restore 
-			  comfort when you need it most.</p>
-              <a href="services.html" class="readmore stretched-link">Learn more <i
-                  class="bi bi-arrow-right"></i></a>
+              <div class="icon"><i class="fa-solid fa-arrow-up-from-ground-water"></i></div>
+              <h3>Repairs &amp; Emergency Service</h3>
+              <p>Fast, reliable repairs for all HVAC brands, available 24/7 to restore comfort when you need it most.</p>
+              <a href="services.html" class="readmore stretched-link">Learn more <i class="bi bi-arrow-right"></i></a>
             </div>
-          </div><!-- End Service Item -->
+          </div>
 
           <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
             <div class="service-item position-relative">
-              <div class="icon">
-                <i class="fa-solid fa-compass-drafting"></i>
-              </div>
+              <div class="icon"><i class="fa-solid fa-compass-drafting"></i></div>
               <h3>Energy-Efficient Upgrades</h3>
-              <p>Upgrade to high-efficiency systems to reduce energy bills and lower your carbon 
-			  footprint without compromising comfort.</p>
-              <a href="services.html" class="readmore stretched-link">Learn more <i
-                  class="bi bi-arrow-right"></i></a>
+              <p>Upgrade to high-efficiency systems to reduce energy bills and lower your carbon footprint without compromising comfort.</p>
+              <a href="services.html" class="readmore stretched-link">Learn more <i class="bi bi-arrow-right"></i></a>
             </div>
-          </div><!-- End Service Item -->
+          </div>
 
           <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="400">
             <div class="service-item position-relative">
-              <div class="icon">
-                <i class="fa-solid fa-trowel-bricks"></i>
-              </div>
+              <div class="icon"><i class="fa-solid fa-trowel-bricks"></i></div>
               <h3>Seasonal Maintenance</h3>
-              <p>Comprehensive tune-ups and inspections to keep your systems running efficiently 
-			  and prevent costly breakdowns.</p>
-              <a href="services.html" class="readmore stretched-link">Learn more <i
-                  class="bi bi-arrow-right"></i></a>
+              <p>Comprehensive tune-ups and inspections to keep your systems running efficiently and prevent costly breakdowns.</p>
+              <a href="services.html" class="readmore stretched-link">Learn more <i class="bi bi-arrow-right"></i></a>
             </div>
-          </div><!-- End Service Item -->
+          </div>
 
           <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="500">
             <div class="service-item position-relative">
-              <div class="icon">
-                <i class="fa-solid fa-helmet-safety"></i>
-              </div>
+              <div class="icon"><i class="fa-solid fa-helmet-safety"></i></div>
               <h3>Commercial HVAC Solutions</h3>
-              <p>Custom heating and cooling systems for offices, warehouses, and retail spaces, designed for performance 
-			  and reliability.</p>
-              <a href="services.html" class="readmore stretched-link">Learn more <i
-                  class="bi bi-arrow-right"></i></a>
+              <p>Custom heating and cooling systems for offices, warehouses, and retail spaces, designed for performance and reliability.</p>
+              <a href="services.html" class="readmore stretched-link">Learn more <i class="bi bi-arrow-right"></i></a>
             </div>
-          </div><!-- End Service Item -->
+          </div>
 
           <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="600">
             <div class="service-item position-relative">
-              <div class="icon">
-                <i class="fa-solid fa-arrow-up-from-ground-water"></i>
-              </div>
+              <div class="icon"><i class="fa-solid fa-arrow-up-from-ground-water"></i></div>
               <h3>Indoor Air Quality</h3>
-              <p>Air purification, filtration, and humidity control solutions to create a healthier 
-			  indoor environment.</p>
-              <a href="services.html" class="readmore stretched-link">Learn more <i
-                  class="bi bi-arrow-right"></i></a>
+              <p>Air purification, filtration, and humidity control solutions to create a healthier indoor environment.</p>
+              <a href="services.html" class="readmore stretched-link">Learn more <i class="bi bi-arrow-right"></i></a>
             </div>
-          </div><!-- End Service Item -->
+          </div>
 
         </div>
-
       </div>
     </section><!-- End Services Section -->
 
-    
     <!-- ======= Get Started Section ======= -->
     <section id="get-started" class="get-started section-bg">
       <div class="container">
-
         <div class="row justify-content-between gy-4">
 
           <div class="col-lg-6 d-flex align-items-center" data-aos="fade-up">
             <div class="content">
               <h3>Reliable Comfort, Every Season.</h3>
-              <p>At Sumit Heating and Air Conditioning, we deliver more than just temperature control — we provide year-round comfort you can 
-					count on. Our skilled technicians combine expertise, precision, and modern technology to ensure your home or 
-					business enjoys the perfect climate. 
-              <p> From installation and maintenance to fast, dependable repairs, we work with transparency, reliability,
-			      and a customer-first approach. Experience the difference of quality service designed to keep you comfortable in every season.</p>
+              <p>At Sumit Heating and Air Conditioning, we deliver more than just temperature control — we provide year-round comfort you can count on. Our skilled technicians combine expertise, precision, and modern technology to ensure your home or business enjoys the perfect climate.</p>
+              <p>From installation and maintenance to fast, dependable repairs, we work with transparency, reliability, and a customer-first approach. Experience the difference of quality service designed to keep you comfortable in every season.</p>
             </div>
           </div>
 
           <div class="col-lg-5" data-aos="fade">
             <form action="forms/quote.php" method="post" class="php-email-form">
               <h3>Get a quote</h3>
-              <p>Tell us about your HVAC needs and we’ll provide a quick, no-obligation quote.  
-					Our team is ready to design a solution that keeps you comfortable year-round.</p>
+              <p>Tell us about your HVAC needs and we'll provide a quick, no-obligation quote. Our team is ready to design a solution that keeps you comfortable year-round.</p>
               <div class="row gy-3">
-
                 <div class="col-md-12">
                   <input type="text" name="name" class="form-control" placeholder="Name" required>
                 </div>
-
-                <div class="col-md-12 ">
+                <div class="col-md-12">
                   <input type="email" class="form-control" name="email" placeholder="Email" required>
                 </div>
-
                 <div class="col-md-12">
                   <input type="text" class="form-control" name="phone" placeholder="Phone" required>
                 </div>
-
                 <div class="col-md-12">
                   <textarea class="form-control" name="message" rows="6" placeholder="Message" required></textarea>
                 </div>
-
                 <div class="col-md-12 text-center">
                   <div class="loading">Loading</div>
                   <div class="error-message"></div>
                   <div class="sent-message">Your quote request has been sent successfully. Thank you!</div>
-
                   <button type="submit">Get a quote</button>
                 </div>
-
               </div>
             </form>
-          </div><!-- End Quote Form -->
+          </div>
 
         </div>
-
       </div>
     </section><!-- End Get Started Section -->
-    
-
-
-
-    
 
   </main><!-- End #main -->
 
-  <!-- ======= Footer ======= -->
-    
-	<!-- Footer will be injected here -->
-	<div id="footerContainer"></div>
-	
-  <!-- =======  End Footer ======= -->
+  <div id="footerContainer"></div>
 
-	<script>
-		  /* 
-			//Load header
-			fetch('header.html')
-			  .then(res => res.text())
-			  .then(html => { document.getElementById('header1').innerHTML = html; })
-			  .catch(err => console.error('Header load failed:', err));
-		  */
+  <script>
+    fetch('footer.html')
+      .then(res => res.text())
+      .then(data => { document.getElementById('footerContainer').innerHTML = data; })
+      .catch(err => console.error('Footer load failed:', err));
 
-		  // Load footer
-		  fetch('footer.html')
-			.then(res => res.text())
-			.then(data => { document.getElementById('footerContainer').innerHTML = data; })
-			.catch(err => console.error('Footer load failed:', err));
-			
-		  // Highlight the active menu item based on current URL
-			const currentPage = window.location.pathname.split("/").pop();
-				document.querySelectorAll('#navbar a').forEach(link => {
-				  if (link.getAttribute('href') === currentPage) {
-					link.classList.add('active');
-				  } else {
-					link.classList.remove('active');
-				  }
-				});
-			
-    </script>
+    var currentPage = window.location.pathname.split("/").pop();
+    document.querySelectorAll('#navbar a').forEach(function(link) {
+      link.classList.toggle('active', link.getAttribute('href') === currentPage);
+    });
+  </script>
 
-	
-  
-
-  <a href="#" class="scroll-top d-flex align-items-center justify-content-center"><i
-      class="bi bi-arrow-up-short"></i></a>
-
+  <a href="#" class="scroll-top d-flex align-items-center justify-content-center">
+    <i class="bi bi-arrow-up-short"></i>
+  </a>
   <div id="preloader"></div>
 
-  <!-- Vendor JS Files -->
   <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="assets/vendor/aos/aos.js"></script>
   <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
-  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
   <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
   <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
   <script src="assets/vendor/php-email-form/validate.js"></script>
-
-  <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
 
-</body>
+  <!-- Gallery script -->
+  <script>
+  (function () {
+    var PROJECTS = [
+      { label: "01-Radiant-Heating", folder: "01-Radiant-Heating", count: 6 },
+      { label: "02-Commercial",      folder: "02-Commercial", count: 6 },
+      { label: "03-Custom-Homes",    folder: "03-Custom-Homes", count: 6 },
+      { label: "04-Subdivisions",    folder: "04-Subdivisions", count: 9 }
+    ];
 
+    function imgSrc(folder, idx) {
+      return "assets/img/" + folder + "/pic" + String(idx).padStart(2, "0") + ".jpg";
+    }
+
+    function buildImages(proj) {
+      var imgs = [];
+      for (var i = 1; i <= proj.count; i++) {
+        imgs.push({ src: imgSrc(proj.folder, i), title: proj.label + " - " + String(i).padStart(2, "0") });
+      }
+      return imgs;
+    }
+
+    function buildWidget(proj) {
+      var images = buildImages(proj);
+      var current = 0;
+
+      /* Bootstrap col */
+      var col = document.createElement("div");
+      col.className = "col-lg-6 col-md-6 col-12 hpg-col";
+
+      /* ── Project label ── */
+      var lbl = document.createElement("span");
+      lbl.className = "hpg-project-label";
+      lbl.textContent = proj.label;
+      col.appendChild(lbl);
+
+      /* Inner wrap */
+      var wrap = document.createElement("div");
+      wrap.className = "hpg-wrap";
+      col.appendChild(wrap);
+
+      /* Stage */
+      var stage = document.createElement("div");
+      stage.className = "hpg-stage";
+
+      var btnPrev = document.createElement("button");
+      btnPrev.className = "hpg-arrow";
+      btnPrev.setAttribute("aria-label", "Previous");
+      btnPrev.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>';
+
+      var stackEl = document.createElement("div");
+      stackEl.className = "hpg-stack";
+
+      for (var g = 0; g < 3; g++) {
+        var ghost = document.createElement("div");
+        ghost.className = "hpg-ghost";
+        stackEl.appendChild(ghost);
+      }
+
+      var card = document.createElement("div");
+      card.className = "hpg-card";
+
+      var counter = document.createElement("span");
+      counter.className = "hpg-counter";
+
+      var mainImg = document.createElement("img");
+      mainImg.className = "hpg-main-img";
+      mainImg.alt = "";
+
+      card.appendChild(counter);
+      card.appendChild(mainImg);
+      stackEl.appendChild(card);
+
+      var btnNext = document.createElement("button");
+      btnNext.className = "hpg-arrow";
+      btnNext.setAttribute("aria-label", "Next");
+      btnNext.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>';
+
+      stage.appendChild(btnPrev);
+      stage.appendChild(stackEl);
+      stage.appendChild(btnNext);
+
+      /* Progress */
+      var progressBar = document.createElement("div");
+      progressBar.className = "hpg-progress";
+      var progressFill = document.createElement("div");
+      progressFill.className = "hpg-progress-fill";
+      progressBar.appendChild(progressFill);
+
+      /* Thumbnails */
+      var thumbsRow = document.createElement("div");
+      thumbsRow.className = "hpg-thumbs";
+
+      images.forEach(function(img, idx) {
+        var t = document.createElement("div");
+        t.className = "hpg-thumb" + (idx === 0 ? " hpg-active" : "");
+        var tImg = document.createElement("img");
+        tImg.src = img.src;
+        tImg.alt = img.title;
+        tImg.loading = "lazy";
+        t.appendChild(tImg);
+        t.addEventListener("click", (function(i){ return function(){ goTo(i); }; })(idx));
+        thumbsRow.appendChild(t);
+      });
+
+      wrap.appendChild(stage);
+      wrap.appendChild(progressBar);
+      wrap.appendChild(thumbsRow);
+
+      /* State helpers */
+      function updateUI() {
+        counter.textContent = (current + 1) + " / " + images.length;
+        progressFill.style.width = (((current + 1) / images.length) * 100) + "%";
+        thumbsRow.querySelectorAll(".hpg-thumb").forEach(function(t, i) {
+          t.classList.toggle("hpg-active", i === current);
+        });
+        var at = thumbsRow.querySelectorAll(".hpg-thumb")[current];
+        if (at) at.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+      }
+
+      function setImage(idx, animate) {
+        current = ((idx % images.length) + images.length) % images.length;
+        if (animate) {
+          mainImg.classList.add("hpg-fade-out");
+          setTimeout(function() {
+            mainImg.src = images[current].src;
+            mainImg.alt = images[current].title;
+            mainImg.classList.remove("hpg-fade-out");
+            updateUI();
+          }, 280);
+        } else {
+          mainImg.src = images[current].src;
+          mainImg.alt = images[current].title;
+          updateUI();
+        }
+      }
+
+      function goTo(idx) {
+        if (idx === current) return;
+        setImage(idx, true);
+      }
+
+      setImage(0, false);
+
+      btnPrev.addEventListener("click", function(e) { e.stopPropagation(); goTo(current - 1); });
+      btnNext.addEventListener("click", function(e) { e.stopPropagation(); goTo(current + 1); });
+
+      /* Click image → GLightbox fullscreen */
+      stackEl.addEventListener("click", function() {
+        if (typeof GLightbox === "undefined") return;
+        var lb = GLightbox({
+          elements: images.map(function(img) {
+            return { href: img.src, title: img.title, type: "image" };
+          }),
+          touchNavigation: true, loop: true,
+          openEffect: "zoom", closeEffect: "zoom",
+          startAt: current
+        });
+        lb.open();
+      });
+
+      return col;
+    }
+
+    function renderHomeGallery() {
+      var grid = document.getElementById("hpg-grid");
+      if (!grid) return;
+      PROJECTS.forEach(function(proj) { grid.appendChild(buildWidget(proj)); });
+    }
+
+    document.addEventListener("DOMContentLoaded", renderHomeGallery);
+  })();
+  </script>
+
+</body>
 </html>

@@ -1,0 +1,262 @@
+/* ================================================================
+   STACKED GALLERY WIDGET  — sgw-styles.css
+   2×N grid layout: each widget sits in a Bootstrap col-lg-6 cell
+   ================================================================ */
+
+/* ---- Project label above each widget ---- */
+.sgw-project-label {
+  font-family: 'Work Sans', sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-secondary, #444);
+  text-align: center;
+  margin: 0 0 12px 0;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* ---- Col wrapper ---- */
+.sgw-col {
+  padding-bottom: 10px;
+}
+
+/* ---- Widget: fills its col ---- */
+.sgw-wrap {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+}
+
+/* ---- Stage row: arrows + stack ---- */
+.sgw-stage {
+  display: flex;
+  align-items: center;
+  gap: clamp(8px, 1.5vw, 20px);
+  width: 100%;
+  justify-content: center;
+}
+
+/* ---- Arrow buttons ---- */
+.sgw-arrow {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  border: 2px solid var(--color-secondary, #444);
+  background: #fff;
+  border-radius: 3px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, border-color 0.2s, transform 0.15s;
+  color: var(--color-secondary, #444);
+  box-shadow: 2px 2px 0 rgba(0,0,0,0.10);
+}
+.sgw-arrow svg { width: 18px; height: 18px; }
+.sgw-arrow:hover {
+  background: var(--color-primary, #e84545);
+  border-color: var(--color-primary, #e84545);
+  color: #fff;
+  transform: scale(1.07);
+  box-shadow: 3px 3px 0 rgba(0,0,0,0.15);
+}
+
+/* ---- Stacked card container — fills available width ---- */
+.sgw-stack {
+  position: relative;
+  /* Fill space between the two arrows */
+  flex: 1 1 0;
+  min-width: 0;
+  /* Maintain 16:11 ratio via padding-top trick */
+  aspect-ratio: 16/11;
+  /* Extra right/bottom room for ghost offset */
+  margin-right: 14px;
+  margin-bottom: 14px;
+}
+
+/* Ghost layers */
+.sgw-ghost {
+  position: absolute;
+  inset: 0;
+  border: 1.5px solid rgba(0,0,0,0.18);
+  background: #fff;
+  border-radius: 3px;
+  pointer-events: none;
+}
+.sgw-ghost:nth-child(1) { transform: translate(12px, 12px); opacity: 0.20; }
+.sgw-ghost:nth-child(2) { transform: translate(8px,  8px);  opacity: 0.36; }
+.sgw-ghost:nth-child(3) { transform: translate(4px,  4px);  opacity: 0.58; }
+
+/* Active card */
+.sgw-card {
+  position: absolute;
+  inset: 0;
+  border: 2px solid var(--color-secondary, #333);
+  border-radius: 3px;
+  overflow: hidden;
+  background: #e5e5e5;
+  box-shadow: 6px 6px 0 rgba(0,0,0,0.13);
+  transition: box-shadow 0.25s;
+}
+.sgw-card:hover { box-shadow: 9px 9px 0 rgba(0,0,0,0.17); }
+
+/* Main image */
+.sgw-main-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: opacity 0.28s ease, transform 0.28s ease;
+}
+.sgw-main-img.sgw-fade-out {
+  opacity: 0;
+  transform: scale(1.03);
+}
+
+/* Counter badge */
+.sgw-counter {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  z-index: 10;
+  background: rgba(0,0,0,0.55);
+  color: #fff;
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  padding: 3px 8px;
+  border-radius: 2px;
+  font-family: 'Work Sans', sans-serif;
+  font-weight: 500;
+}
+
+/* Zoom / lightbox trigger */
+.sgw-zoom {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  z-index: 10;
+  width: 34px;
+  height: 34px;
+  background: rgba(255,255,255,0.92);
+  border: 1.5px solid rgba(0,0,0,0.2);
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #333;
+  text-decoration: none;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.25s, transform 0.25s, background 0.2s;
+}
+.sgw-zoom svg { width: 16px; height: 16px; }
+.sgw-card:hover .sgw-zoom {
+  opacity: 1;
+  transform: translateY(0);
+}
+.sgw-zoom:hover {
+  background: var(--color-primary, #e84545);
+  border-color: var(--color-primary, #e84545);
+  color: #fff;
+}
+
+/* Caption overlay */
+.sgw-caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 24px 14px 12px;
+  background: linear-gradient(transparent, rgba(0,0,0,0.68));
+  color: #fff;
+  transform: translateY(102%);
+  transition: transform 0.32s ease;
+  pointer-events: none;
+}
+.sgw-card:hover .sgw-caption { transform: translateY(0); }
+.sgw-cap-title {
+  font-family: 'Work Sans', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 600;
+  margin-bottom: 2px;
+  letter-spacing: 0.03em;
+}
+.sgw-cap-sub {
+  font-size: 0.68rem;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  opacity: 0.82;
+}
+
+/* ---- Progress bar ---- */
+.sgw-progress {
+  width: calc(100% - 96px); /* account for arrows + gaps */
+  height: 3px;
+  background: rgba(0,0,0,0.10);
+  margin-top: 10px;
+  border-radius: 2px;
+  overflow: hidden;
+}
+.sgw-progress-fill {
+  height: 100%;
+  background: var(--color-primary, #e84545);
+  transition: width 0.35s ease;
+  border-radius: 2px;
+}
+
+/* ---- Thumbnail strip ---- */
+.sgw-thumbs {
+  display: flex;
+  gap: 8px;
+  margin-top: 14px;
+  overflow-x: auto;
+  padding: 4px 2px 8px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0,0,0,0.15) transparent;
+  width: calc(100% - 96px);
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+}
+.sgw-thumbs::-webkit-scrollbar { height: 4px; }
+.sgw-thumbs::-webkit-scrollbar-track { background: transparent; }
+.sgw-thumbs::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.18); border-radius: 2px; }
+
+.sgw-thumb {
+  flex-shrink: 0;
+  width: 64px;
+  height: 44px;
+  border: 2px solid transparent;
+  border-radius: 3px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+  background: #ddd;
+}
+.sgw-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s ease;
+}
+.sgw-thumb:hover {
+  transform: translateY(-3px);
+  box-shadow: 2px 3px 0 rgba(0,0,0,0.14);
+}
+.sgw-thumb:hover img { transform: scale(1.1); }
+.sgw-thumb.sgw-active {
+  border-color: var(--color-primary, #e84545);
+  box-shadow: 2px 2px 0 rgba(0,0,0,0.18);
+  transform: translateY(-3px);
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 767px) {
+  /* Single column on mobile */
+  .sgw-col { width: 100% !important; }
+  .sgw-arrow { width: 36px; height: 36px; }
+  .sgw-stage { gap: 8px; }
+}
