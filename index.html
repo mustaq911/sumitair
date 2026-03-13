@@ -425,30 +425,35 @@
           </div>
 
           <div class="col-lg-5" data-aos="fade">
-            <form action="forms/quote.php" method="post" class="php-email-form">
-              <h3>Get a quote</h3>
-              <p>Tell us about your HVAC needs and we'll provide a quick, no-obligation quote. Our team is ready to design a solution that keeps you comfortable year-round.</p>
-              <div class="row gy-3">
-                <div class="col-md-12">
-                  <input type="text" name="name" class="form-control" placeholder="Name" required>
-                </div>
-                <div class="col-md-12">
-                  <input type="email" class="form-control" name="email" placeholder="Email" required>
-                </div>
-                <div class="col-md-12">
-                  <input type="text" class="form-control" name="phone" placeholder="Phone" required>
-                </div>
-                <div class="col-md-12">
-                  <textarea class="form-control" name="message" rows="6" placeholder="Message" required></textarea>
-                </div>
-                <div class="col-md-12 text-center">
-                  <div class="loading">Loading</div>
-                  <div class="error-message"></div>
-                  <div class="sent-message">Your quote request has been sent successfully. Thank you!</div>
-                  <button type="submit">Get a quote</button>
-                </div>
-              </div>
-            </form>
+            <form id="quoteForm" class="php-email-form">
+			  <h3>Get a quote</h3>
+			  <p>Tell us about your HVAC needs and we'll provide a quick, no-obligation quote. Our team is ready to design a solution that keeps you comfortable year-round.</p>
+
+			  <div class="row gy-3">
+				<div class="col-md-12">
+				  <input type="text" name="name" class="form-control" placeholder="Name" required>
+				</div>
+
+				<div class="col-md-12">
+				  <input type="email" class="form-control" name="email" placeholder="Email" required>
+				</div>
+
+				<div class="col-md-12">
+				  <input type="text" class="form-control" name="phone" placeholder="Phone" required>
+				</div>
+
+				<div class="col-md-12">
+				  <textarea class="form-control" name="message" rows="6" placeholder="Message" required></textarea>
+				</div>
+
+				<div class="col-md-12 text-center">
+				  <div class="loading" style="display:none;">Loading</div>
+				  <div class="error-message" style="display:none;color:red;"></div>
+				  <div class="sent-message" style="display:none;color:green;">Your quote request has been sent successfully. Thank you!</div>
+				  <button type="submit">Get a quote</button>
+				</div>
+			  </div>
+			</form>
           </div>
 
         </div>
@@ -658,5 +663,47 @@
   })();
   </script>
 
+	<script>
+	  const scriptURL = "https://script.google.com/macros/s/AKfycbzgIGvgDkcUjZGXu2VXu_F5d-uEAWfjs_EeiWKFxbk5lWhLjSJhTk8IsLFgVBal_yIAcA/exec";
+
+	  const form = document.getElementById("quoteForm");
+	  const loading = form.querySelector(".loading");
+	  const errorMessage = form.querySelector(".error-message");
+	  const sentMessage = form.querySelector(".sent-message");
+
+	  form.addEventListener("submit", async function (e) {
+		e.preventDefault();
+
+		loading.style.display = "block";
+		errorMessage.style.display = "none";
+		sentMessage.style.display = "none";
+
+		const formData = new FormData(form);
+
+		try {
+		  const response = await fetch(scriptURL, {
+			method: "POST",
+			body: formData
+		  });
+
+		  const result = await response.text();
+
+		  loading.style.display = "none";
+
+		  if (result === "success") {
+			sentMessage.style.display = "block";
+			form.reset();
+		  } else {
+			errorMessage.style.display = "block";
+			errorMessage.innerText = "Something went wrong. Please try again.";
+		  }
+		} catch (error) {
+		  loading.style.display = "none";
+		  errorMessage.style.display = "block";
+		  errorMessage.innerText = "Failed to send request.";
+		  console.error("Error!", error.message);
+		}
+	  });
+	</script>
 </body>
 </html>
