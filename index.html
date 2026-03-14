@@ -25,20 +25,40 @@
 
   <style>
     /* ============================================================
-       HERO — reduce to ~30% of original 100vh height
+       HERO SECTION — Responsive & Zoom-safe (up to 120%)
+       ============================================================
+
+       STRATEGY:
+       - Use min-height with enough px so content never gets clipped
+         at up to 120% browser zoom.
+       - Remove overflow:hidden from .info so "Get Started" never
+         gets cut off.
+       - On mobile, push the hero below the fixed header by adding
+         padding-top equal to the header height so they don't overlap.
        ============================================================ */
+
+    /* ---------- Desktop / tablet (≥ 768px) ---------- */
     #hero,
     #hero-carousel,
     #hero-carousel .carousel-item {
+      /* 
+        Use a min-height large enough to always show all content
+        (title + paragraph + button) even at 120% zoom.
+        320px comfortably fits: ~40px h2 + ~80px p + ~50px btn + padding.
+        The 30vh keeps it proportional on large monitors; 320px is the floor.
+      */
       height: 30vh !important;
-      min-height: 200px !important;
+      min-height: 320px !important;
     }
 
-    /* CRITICAL: stop .info from overflowing beyond the hero section */
+    /* #hero itself: relative so .info can fill it */
     #hero {
       position: relative !important;
-      overflow: hidden !important;
+      /* NO overflow:hidden here — that was clipping the button */
+      overflow: visible !important;
     }
+
+    /* .info overlay fills the hero, centres content vertically */
     #hero .info {
       position: absolute !important;
       top: 0 !important;
@@ -46,30 +66,138 @@
       right: 0 !important;
       bottom: 0 !important;
       height: 100% !important;
-      overflow: hidden !important;
-      pointer-events: none; /* let clicks pass through the overlay layer */
+      /* 
+        Do NOT set overflow:hidden — it was hiding the Get Started button.
+        Use overflow:visible so nothing gets clipped.
+      */
+      overflow: visible !important;
+      /* Keep it above the carousel background */
+      z-index: 2;
     }
-    /* Re-enable pointer events only on actual interactive elements inside .info */
+
+    /* Let the flex container also stretch to fill .info height */
+    #hero .info.d-flex {
+      min-height: inherit;
+    }
+
+    /* Re-enable pointer events on interactive elements */
     #hero .info a,
     #hero .info button {
       pointer-events: auto;
     }
 
-    /* Widen the welcome text container so it uses more horizontal space */
-    #hero .info .row { max-width: 100%; }
-    #hero .info .col-lg-6 {
-      flex: 0 0 100%;
-      max-width: 100%;
+    /* Widen the welcome text container */
+    #hero .info .col-lg-10 {
+      flex: 0 0 83.333%;
+      max-width: 83.333%;
     }
-    #hero .info h2 { font-size: 1.6rem; margin-bottom: 6px; }
-    #hero .info p   { font-size: 0.88rem; margin-bottom: 10px; }
+
+    /* Scale down text slightly so everything fits at 120% zoom */
+    #hero .info h2 {
+      font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+      margin-bottom: 6px;
+      line-height: 1.3;
+    }
+    #hero .info p {
+      font-size: clamp(0.78rem, 1.2vw, 0.92rem);
+      margin-bottom: 10px;
+      line-height: 1.5;
+    }
+    /* Make the Get Started button slightly more compact */
+    #hero .info .btn-get-started {
+      padding: 8px 24px;
+      font-size: 0.88rem;
+      white-space: nowrap;
+    }
+
+    /* Ensure the carousel background covers the section */
+    #hero-carousel {
+      position: absolute !important;
+      top: 0 !important;
+      left: 0 !important;
+      width: 100% !important;
+      z-index: 1;
+    }
+
+    /* ---------- Mobile (≤ 767px) ---------- */
+    @media (max-width: 767px) {
+      /*
+        The header is position:absolute (overlays the hero by design).
+        So we do NOT use margin-top on the hero — that creates a white gap.
+        Instead, we push the .info content DOWN with padding-top so it
+        clears the header text/logo that overlaps it.
+        ~70px covers the header height on most mobile screens.
+      */
+
+      #hero,
+      #hero-carousel,
+      #hero-carousel .carousel-item {
+        height: auto !important;
+        min-height: 420px !important;
+      }
+
+      /* No margin-top — header is absolute, not in flow */
+      section#hero.hero {
+        margin-top: 0 !important;
+      }
+
+      /* Push info content below the overlapping header.
+         Header on mobile: padding 30px top/bottom + logo ~50px = ~110px.
+         Using 120px gives safe clearance. */
+      #hero .info {
+        padding-top: 120px !important;
+        padding-bottom: 24px !important;
+      }
+
+      /* Full width column on mobile */
+      #hero .info .col-lg-10 {
+        flex: 0 0 100% !important;
+        max-width: 100% !important;
+        padding: 0 15px;
+      }
+
+      /* Slightly larger text on mobile for readability */
+      #hero .info h2 {
+        font-size: 1.4rem !important;
+        margin-bottom: 8px;
+      }
+      #hero .info p {
+        font-size: 0.84rem !important;
+        margin-bottom: 12px;
+      }
+      #hero .info .btn-get-started {
+        padding: 9px 22px;
+        font-size: 0.85rem;
+      }
+
+      /* Gallery cols full width on mobile */
+      .hpg-col { width: 100% !important; }
+      .hpg-arrow { width: 34px; height: 34px; }
+    }
+
+    /* ---------- Extra small phones (≤ 400px) ---------- */
+    @media (max-width: 400px) {
+      #hero,
+      #hero-carousel,
+      #hero-carousel .carousel-item {
+        min-height: 400px !important;
+      }
+      #hero .info {
+        padding-top: 110px !important;
+      }
+      #hero .info h2 {
+        font-size: 1.25rem !important;
+      }
+      #hero .info p {
+        font-size: 0.8rem !important;
+      }
+    }
 
     /* ============================================================
        PROJECT LABEL above each gallery widget
        ============================================================ */
     .hpg-project-label {
       font-family: 'Work Sans', sans-serif;
-      /* font-size: 0.78rem; */
       font-weight: 700;
       letter-spacing: 0.12em;
       text-transform: uppercase;
@@ -180,14 +308,6 @@
       transform: translateY(-3px);
       box-shadow: 0 2px 6px rgba(232,69,69,0.3);
     }
-
-    @media (max-width: 767px) {
-      .hpg-col { width: 100% !important; }
-      .hpg-arrow { width: 34px; height: 34px; }
-      #hero, #hero-carousel, #hero-carousel .carousel-item {
-        height: 25vh !important; min-height: 160px !important;
-      }
-    }
   </style>
 
 </head>
@@ -215,12 +335,11 @@
     </div>
   </header><!-- End Header -->
 
-  <!-- ======= Hero Section — compact 30vh ======= -->
+  <!-- ======= Hero Section ======= -->
   <section id="hero" class="hero">
     <div class="info d-flex align-items-center">
       <div class="container">
         <div class="row justify-content-center">
-          <!-- col widened to col-lg-10 for more horizontal space -->
           <div class="col-lg-10 col-12 text-center">
             <h2 data-aos="fade-down">Welcome</h2>
             <p data-aos="fade-up">Sumit Heating &amp; Air Conditioning, based in the GTA, specializes in providing high-quality
@@ -248,7 +367,7 @@
 
   <main id="main">
 
-    <!-- ======= Projects Gallery Section (ABOVE Constructions) ======= -->
+    <!-- ======= Projects Gallery Section ======= -->
     <section id="home-projects" class="projects section-bg">
       <div class="container" data-aos="fade-up">
 
@@ -257,7 +376,6 @@
           <p>A selection of custom home HVAC installations we're proud of.</p>
         </div>
 
-        <!-- 2×2 grid — labels and widgets injected by script -->
         <div id="hpg-grid" class="row gy-4" data-aos="fade-up" data-aos-delay="100"></div>
 
         <div class="text-center mt-4" data-aos="fade-up" data-aos-delay="200">
@@ -426,39 +544,39 @@
 
           <div class="col-lg-5" data-aos="fade">
             <form id="quoteForm">
-			  <h3>Get a quote</h3>
-			  <p>
-				Tell us about your HVAC needs and we'll provide a quick, no-obligation quote.
-				Our team is ready to design a solution that keeps you comfortable year-round.
-			  </p>
+              <h3>Get a quote</h3>
+              <p>
+                Tell us about your HVAC needs and we'll provide a quick, no-obligation quote.
+                Our team is ready to design a solution that keeps you comfortable year-round.
+              </p>
 
-			  <div class="row gy-3">
-				<div class="col-md-12">
-				  <input type="text" id="name" class="form-control" placeholder="Name" required>
-				</div>
+              <div class="row gy-3">
+                <div class="col-md-12">
+                  <input type="text" id="name" class="form-control" placeholder="Name" required>
+                </div>
 
-				<div class="col-md-12">
-				  <input type="email" id="email" class="form-control" placeholder="Email" required>
-				</div>
+                <div class="col-md-12">
+                  <input type="email" id="email" class="form-control" placeholder="Email" required>
+                </div>
 
-				<div class="col-md-12">
-				  <input type="text" id="phone" class="form-control" placeholder="Phone" required>
-				</div>
+                <div class="col-md-12">
+                  <input type="text" id="phone" class="form-control" placeholder="Phone" required>
+                </div>
 
-				<div class="col-md-12">
-				  <textarea id="message" class="form-control" rows="6" placeholder="Message" required></textarea>
-				</div>
+                <div class="col-md-12">
+                  <textarea id="message" class="form-control" rows="6" placeholder="Message" required></textarea>
+                </div>
 
-				<div class="col-md-12 text-center">
-				  <div id="loadingMsg" style="display:none;">Loading...</div>
-				  <div id="errorMsg" style="display:none; color:red;"></div>
-				  <div id="successMsg" style="display:none; color:green;">
-					Your quote request has been sent successfully. Thank you!
-				  </div>
-				  <button type="submit">Get a quote</button>
-				</div>
-			  </div>
-			</form>
+                <div class="col-md-12 text-center">
+                  <div id="loadingMsg" style="display:none;">Loading...</div>
+                  <div id="errorMsg" style="display:none; color:red;"></div>
+                  <div id="successMsg" style="display:none; color:green;">
+                    Your quote request has been sent successfully. Thank you!
+                  </div>
+                  <button type="submit">Get a quote</button>
+                </div>
+              </div>
+            </form>
           </div>
 
         </div>
@@ -480,6 +598,8 @@
       link.classList.toggle('active', link.getAttribute('href') === currentPage);
     });
   </script>
+
+
 
   <a href="#" class="scroll-top d-flex align-items-center justify-content-center">
     <i class="bi bi-arrow-up-short"></i>
@@ -523,7 +643,7 @@
       var col = document.createElement("div");
       col.className = "col-lg-6 col-md-6 col-12 hpg-col";
 
-      /* ── Project label ── */
+      /* Project label */
       var lbl = document.createElement("span");
       lbl.className = "hpg-project-label";
       lbl.textContent = proj.label;
@@ -666,59 +786,59 @@
     document.addEventListener("DOMContentLoaded", renderHomeGallery);
   })();
   </script>
-	
-	<script>
-	  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxMC20VWBYGVEjxMi_i2W1wTTiaSViq-HV7Nhn_CQuYItoUC0BWAnO7aIWli3m6A6Ap/exec";
-						  
-	  const form = document.getElementById("quoteForm");
-	  const loadingMsg = document.getElementById("loadingMsg");
-	  const errorMsg = document.getElementById("errorMsg");
-	  const successMsg = document.getElementById("successMsg");
 
-	  form.addEventListener("submit", async function (e) {
-		e.preventDefault();
+  <script>
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxMC20VWBYGVEjxMi_i2W1wTTiaSViq-HV7Nhn_CQuYItoUC0BWAnO7aIWli3m6A6Ap/exec";
 
-		loadingMsg.style.display = "block";
-		errorMsg.style.display = "none";
-		successMsg.style.display = "none";
-		errorMsg.textContent = "";
+    const form = document.getElementById("quoteForm");
+    const loadingMsg = document.getElementById("loadingMsg");
+    const errorMsg = document.getElementById("errorMsg");
+    const successMsg = document.getElementById("successMsg");
 
-		const params = new URLSearchParams();
-		params.append("name", document.getElementById("name").value.trim());
-		params.append("email", document.getElementById("email").value.trim());
-		params.append("phone", document.getElementById("phone").value.trim());
-		params.append("message", document.getElementById("message").value.trim());
+    form.addEventListener("submit", async function (e) {
+      e.preventDefault();
 
-		try {
-		  const res = await fetch(SCRIPT_URL, {
-			method: "POST",
-			headers: {
-			  "Content-Type": "application/x-www-form-urlencoded"
-			},
-			body: params.toString()
-		  });
+      loadingMsg.style.display = "block";
+      errorMsg.style.display = "none";
+      successMsg.style.display = "none";
+      errorMsg.textContent = "";
 
-		  const raw = (await res.text()).trim();
-		  console.log("Apps Script response:", raw);
+      const params = new URLSearchParams();
+      params.append("name", document.getElementById("name").value.trim());
+      params.append("email", document.getElementById("email").value.trim());
+      params.append("phone", document.getElementById("phone").value.trim());
+      params.append("message", document.getElementById("message").value.trim());
 
-		  loadingMsg.style.display = "none";
+      try {
+        const res = await fetch(SCRIPT_URL, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded"
+          },
+          body: params.toString()
+        });
 
-		  if (raw === "success") {
-			successMsg.style.display = "block";
-			form.reset();
-		  } else {
-			errorMsg.style.display = "block";
-			errorMsg.textContent = "Failed to send request.";
-		  }
+        const raw = (await res.text()).trim();
+        console.log("Apps Script response:", raw);
 
-		} catch (err) {
-		  loadingMsg.style.display = "none";
-		  errorMsg.style.display = "block";
-		  errorMsg.textContent = "Error: " + err.message;
-		  console.error(err);
-		}
-	  });
-	</script>
-	
+        loadingMsg.style.display = "none";
+
+        if (raw === "success") {
+          successMsg.style.display = "block";
+          form.reset();
+        } else {
+          errorMsg.style.display = "block";
+          errorMsg.textContent = "Failed to send request.";
+        }
+
+      } catch (err) {
+        loadingMsg.style.display = "none";
+        errorMsg.style.display = "block";
+        errorMsg.textContent = "Error: " + err.message;
+        console.error(err);
+      }
+    });
+  </script>
+
 </body>
 </html>
