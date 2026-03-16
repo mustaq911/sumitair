@@ -15,7 +15,7 @@ const PORTFOLIO_CONFIG = [
   { id: "filter-project5",     label: "Sub Divisions 1",  group: "subdiv", folder: "proj-05", gallery: "portfolio-gallery-book",         count: 6  },
   { id: "filter-project6",     label: "Sub Divisions 2",  group: "subdiv", folder: "proj-06", gallery: "portfolio-gallery-book",         count: 4  },
   { id: "filter-project7",     label: "Sub Divisions 3",  group: "subdiv", folder: "proj-07", gallery: "portfolio-gallery-book",         count: 3  },
-  { id: "filter-project8",     label: "Sub Divisions 4",  group: "subdiv", folder: "proj-08", gallery: "portfolio-gallery-book",         count: 11 }
+  { id: "filter-project8",     label: "Radiant Heating",  group: "subdiv", folder: "proj-08", gallery: "portfolio-gallery-book",         count: 11 }
 ];
 
 /* ------------------------------------------------------------------ */
